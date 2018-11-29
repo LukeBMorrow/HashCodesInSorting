@@ -542,6 +542,11 @@ class Table {
             var = v;
             this.next = next;
         }
+
+        @Override
+        public String toString() {
+            return ""+var;
+        }
     } // end private class Node
 
 
@@ -622,13 +627,13 @@ class Table {
     public void insert( String varID, int varValue )
     {
         long hashCode = turnToHash(varID);
-        int hashKey = (int)(hashCode%hashTable.length);
+        int hashKey = Math.abs((int)(hashCode%hashTable.length));
         hashTable[hashKey] = new Node(new VariableRecord(varID,varValue),hashTable[hashKey]);
     } // end insert
 
     public long turnToHash(String a){
         final int HASH_COEFFICIENT = 13;
-        char[] decomposition= a.toCharArray();
+        char[] decomposition= a.trim().toCharArray();
         long hashProduct=0;
 
         for (char s : decomposition) {
